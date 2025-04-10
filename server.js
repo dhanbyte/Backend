@@ -14,25 +14,15 @@ const app = express();
 // ✅ Middleware
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-const allowedOrigins = [
-    
-    "http://localhost:5174", // for dev if needed
-  ];
-  
-  app.use(cors({
-    origin: function (origin, callback) {
-      if (!origin || allowedOrigins.includes(origin)) {
-        callback(null, true);
-      } else {
-        callback(new Error("Not allowed by CORS"));
-      }
-    },
-    credentials: true,
-  }));
+
 
 // ✅ Serve Static Uploads Folder
 app.use("/uploads", express.static(path.join(process.cwd(), "uploads")));
 
+app.use(cors({
+  origin: ["http://localhost:5174", "https://akhil-graphics-user-ovyn-r2hiy1fnk.vercel.app"],
+  credentials: true,
+}));
 // ✅ Connect to DB
 connectDB();
 
