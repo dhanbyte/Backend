@@ -20,17 +20,10 @@ app.use(express.urlencoded({ extended: true }));
 app.use("/uploads", express.static(path.join(process.cwd(), "uploads")));
 
 
-  const allowOrigins =[  'https://akhil-graphic-part-two-frontend.netlify.app']
-
-  app.use(cors({
-    origin: function (origin, callback) {
-      if (!origin || allowedOrigins.includes(origin)) {
-        callback(null, true);
-      } else {
-        callback(new Error('❌ Not allowed by CORS'));
-      }
-    }
-  }));
+app.use(cors({
+  origin: 'https://akhil-graphic-second-page-frontend.vercel.app',
+  credentials: true
+}));
 // ✅ Connect to DB
 connectDB();
 
