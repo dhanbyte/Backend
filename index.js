@@ -19,10 +19,18 @@ app.use(express.urlencoded({ extended: true }));
 // ✅ Serve Static Uploads Folder
 app.use("/uploads", express.static(path.join(process.cwd(), "uploads")));
 
-app.use(cors({
-  origin: ["http://localhost:5174", "https://akhil-graphics-user-ovyn-r2hiy1fnk.vercel.app"],
-  credentials: true,
-}));
+
+  const allowOrigins =[  'https://akhil-graphic-part-two-frontend.netlify.app']
+
+  app.use(cors({
+    origin: function (origin, callback) {
+      if (!origin || allowedOrigins.includes(origin)) {
+        callback(null, true);
+      } else {
+        callback(new Error('❌ Not allowed by CORS'));
+      }
+    }
+  }));
 // ✅ Connect to DB
 connectDB();
 
